@@ -20,9 +20,9 @@ class NumeroWidgetMedium : AppWidgetProvider() {
         appWidgetIds: IntArray
     ) {
         val prefs = HomeWidgetPlugin.getData(context)
-        val streak = prefs.getInt("widget_streak", 0)
-        val xpToday = prefs.getInt("widget_xp_today", 0)
-        val nextLessonTitle = prefs.getString("widget_next_lesson_title", "Start learning")
+        val streak = prefs.getInt("streak", 0)
+        val xpToday = prefs.getInt("xpToday", 0)
+        val nextLessonTitle = prefs.getString("nextLessonTitle", "Start learning")
             ?: "Start learning"
 
         appWidgetIds.forEach { id ->

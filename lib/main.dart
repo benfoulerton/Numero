@@ -13,6 +13,7 @@ import 'app.dart';
 import 'core/services/database_service.dart';
 import 'core/services/notification_service.dart';
 import 'core/services/storage_service.dart';
+import 'core/theme/theme_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -20,7 +20,7 @@ class AppThemeBuilder {
   }) {
     final ColorScheme scheme;
     if (preset.isDynamic && systemScheme != null) {
-      scheme = systemScheme.harmonized();
+      scheme = systemScheme;
     } else {
       scheme = ColorScheme.fromSeed(
         seedColor: preset.seed,
@@ -57,7 +57,7 @@ class AppThemeBuilder {
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          minimumSize: const Size.fromHeight(56), // generous tap target
+          minimumSize: const Size.fromHeight(56),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -123,4 +123,4 @@ class AppThemeBuilder {
       ),
     );
   }
-}
+}     

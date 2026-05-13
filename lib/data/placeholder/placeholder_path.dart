@@ -7,7 +7,7 @@ library;
 
 import 'package:flutter/material.dart';
 
-import '../features/home/models/path_node_data.dart';
+import '../../features/home/models/path_node_data.dart';
 
 class PlaceholderPath {
   const PlaceholderPath._();

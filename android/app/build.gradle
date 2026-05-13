@@ -24,16 +24,17 @@ if (flutterVersionName == null) {
 
 android {
     namespace = "com.numero.app"
-    compileSdk = 34
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = '17'
     }
 
     sourceSets {
@@ -42,17 +43,14 @@ android {
 
     defaultConfig {
         applicationId = "com.numero.app"
-        // Spec §2: Min SDK Android 8.0 (API 26)
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 36
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
     }
 
     buildTypes {
         release {
-            // Debug signing for now so `flutter run --release` works out of the box.
-            // Replace with a release keystore before Play Store distribution.
             signingConfig = signingConfigs.debug
             minifyEnabled = true
             shrinkResources = true
@@ -66,6 +64,5 @@ flutter {
 }
 
 dependencies {
-    implementation "androidx.core:core-ktx:1.13.1"
-    implementation "androidx.work:work-runtime-ktx:2.9.0" // for scheduled notifications
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
 }

@@ -1,13 +1,12 @@
 /// Scaffold for a single micro-screen (Spec §6.3).
 ///
-/// Three vertical zones at the 40/30/30 ratios from the spec. The answer
-/// zone receives an interaction widget; on submit, the feedback panel
-/// slides up to occupy the lower ~35%.
+/// Three vertical zones at the 40/16/44 ratios of the *available* space
+/// (not screen height). Using LayoutBuilder rather than MediaQuery means
+/// the scaffold respects whatever space the parent gives it — so the
+/// answer zone never gets squeezed off-screen by the lesson top bar.
 library;
 
 import 'package:flutter/material.dart';
-
-import '../../../core/constants/layout_constants.dart';
 
 class MicroScreenScaffold extends StatelessWidget {
   const MicroScreenScaffold({
@@ -23,38 +22,44 @@ class MicroScreenScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-    return Column(
-      children: [
-        SizedBox(
-          height: size.height * 0.40,
-          width: double.infinity,
-          // Container for diagrams — spec §11.1: clipBehavior hardEdge.
-          child: ClipRect(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Center(child: visual),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final h = constraints.maxHeight;
+        final visualHeight = h * 0.40;
+        final promptHeight = h * 0.16;
+        // The answer zone takes whatever is left, but with a sensible
+        // minimum so very-short host containers don't crush it.
+        return Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            SizedBox(
+              height: visualHeight,
+              width: double.infinity,
+              // Spec §11.1: clipBehavior hardEdge on diagram containers.
+              child: ClipRect(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Center(child: visual),
+                ),
+              ),
             ),
-          ),
-        ),
-        Container(
-          height: size.height * 0.16, // half of the 30% prompt zone
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          alignment: Alignment.center,
-          child: prompt,
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-            child: answer,
-          ),
-        ),
-      ],
+            SizedBox(
+              height: promptHeight,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Center(child: prompt),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: answer,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
-
-  // Exposed for tests and design tooling.
-  static double visualZoneHeight(BuildContext context) =>
-      LayoutConstants.visualZoneHeight(context);
 }

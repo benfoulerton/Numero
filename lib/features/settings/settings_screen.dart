@@ -13,10 +13,6 @@
 // it.
 // ============================================================================
 
-const kDeveloperEmail = 'benfoulerton@gmail.com';
-
-// ============================================================================
-
 /// Settings screen (Spec §14.2).
 ///
 /// Sound, haptics, reduced motion, notifications, theme, reset progress,
@@ -36,6 +32,8 @@ import 'widgets/notification_settings.dart';
 import 'widgets/reset_progress_dialog.dart';
 import 'widgets/settings_section.dart';
 import 'widgets/settings_toggle_tile.dart';
+
+const kDeveloperEmail = 'benfoulerton@gmail.com';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});

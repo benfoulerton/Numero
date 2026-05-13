@@ -24,8 +24,8 @@ class NumeroWidgetSmall : AppWidgetProvider() {
         appWidgetIds: IntArray
     ) {
         val prefs: SharedPreferences = HomeWidgetPlugin.getData(context)
-        val streak = prefs.getInt("widget_streak", 0)
-        val xpToday = prefs.getInt("widget_xp_today", 0)
+        val streak = prefs.getInt("streak", 0)
+        val xpToday = prefs.getInt("xpToday", 0)
 
         appWidgetIds.forEach { id ->
             val views = RemoteViews(context.packageName, R.layout.numero_widget_small)
